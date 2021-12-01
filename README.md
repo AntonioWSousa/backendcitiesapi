@@ -87,11 +87,34 @@ psql -h localhost -U postgres_user_city cities
 ```
 select * from pais;
 ```
-### List - Find All
+### List Country - Find All
 ```
 http://localhost:8080/countries
 ```
 
+### Pageable Country - Find All
+```
+http://localhost:8080/countries?page=0&size=10&sort=name,asc
+```
+
+### Country - Find by ID
+```
+http://localhost:8080/countries/1
+```
+### State - Find All
+```
+http://localhost:8080/states
+```
+### State - Find All
+```
+http://localhost:8080/cities
+```
+```
+CREATE EXTENSION cube; 
+```
+```
+CREATE EXTENSION earthdistance;
+```
 
 ### Query Earth Distance
 ```
@@ -101,18 +124,79 @@ select ((select lat_lon from cidade where id = 4929) <@> (select lat_lon from ci
 select lat_lon from cidade where id=5254;
 ```
 
-###Cube
+### Cube
 ```
 select earth_distance(
     ll_to_earth(-21.95840072631836,-47.98820114135742), 
     ll_to_earth(-22.01740074157715,-47.88600158691406)
 ) as distance;
 ```
+```
+http://localhost:8080/distances/by-points?from=4929&to=5254
+```
+```
+http://localhost:8080/distances/by-cube?from=4929&to=5254
+```
+### Heroku
+```
+heroku create
+```
+```
+git remote -v
+```
+```
+git push heroku main
+```
+```
+heroku addons:create heroku-postgresql
+```
+```
+cd .\sql-paises-estados-cidades\PostgreSQL\
+```
+```
+docker start cities-db
+```
+```
+docker ps
+```
+```
+docker run -it --rm --net=host -v ${PWD}:/tmp postgres /bin/bash
+```
+```
+cd tmp/
+```
+```
+ls
+```
+```
+psql -h host -U user database -f /tmp/pais.sql
+```
+```
+psql -h host -U user database -f /tmp/estado.sql
+```
+```
+psql -h host -U user database -f /tmp/cidade.sql
+```
+```
+psql -h host -U user database
+```
+```
+CREATE EXTENSION cube; 
+```
+```
+CREATE EXTENSION earthdistance;
+```
 
+#Utilização da API no Postman ou no browser
 
-
-
-
+- [Países do mundo](https://shrouded-sierra-80518.herokuapp.com/countries)
+- [Países do mundo por ID](https://shrouded-sierra-80518.herokuapp.com/countries/1)
+- [Estados do Brasil](https://shrouded-sierra-80518.herokuapp.com/states)
+- [Estados do Brasil por ID](https://shrouded-sierra-80518.herokuapp.com/states/1)
+- [Cidades do Brasil](https://shrouded-sierra-80518.herokuapp.com/cities)
+- [Cidades do Brasil por ID](https://shrouded-sierra-80518.herokuapp.com/cities/1)
+- [Distância por metros entre cidades](https://shrouded-sierra-80518.herokuapp.com/distances/by-cube?from=4929&to=5254)
+- [Distância por milhas entre cidades](https://shrouded-sierra-80518.herokuapp.com/distances/by-points?from=4929&to=5254)
 
 
 
