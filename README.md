@@ -187,7 +187,7 @@ CREATE EXTENSION cube;
 CREATE EXTENSION earthdistance;
 ```
 
-#Utilização da API no Postman ou no browser
+# Utilização da API no Postman ou no browser
 
 - [Países do mundo](https://shrouded-sierra-80518.herokuapp.com/countries)
 - [Países do mundo por ID](https://shrouded-sierra-80518.herokuapp.com/countries/1)
